@@ -1,4 +1,5 @@
 {
   "port": 5000,
-  "mongoUri": ""
+  "jwtSecret": "whiteboardproject",
+  "mongoUri": "mongodb+srv://gpashkov:dota7791@users-cluster.8uyycgj.mongodb.net/?retryWrites=true&w=majority"
 }
