@@ -1,0 +1,22 @@
+body {
+  margin: 0px;
+}
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  padding-left: 0;
+}
+
+.left-content {
+  flex-basis: 48%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+.right-content {
+  flex-basis: 48%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}

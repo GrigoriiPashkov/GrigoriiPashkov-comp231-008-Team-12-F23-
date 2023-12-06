@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
+import "../styles/authPage.css";
 import { AuthContext } from "../context/AuthContext";
 export const AuthPage = () => {
   const message = useMessage();
   const auth = useContext(AuthContext);
+  const [isLogin, setIsLogin] = useState(true);
   const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
     email: "",
@@ -34,60 +36,103 @@ export const AuthPage = () => {
       auth.login(data.token, data.userId);
     } catch (e) {}
   };
+  const toggleMode = () => {
+    setIsLogin(!isLogin);
+  };
   return (
-    /*Change this form if you need but DO NOT CHANGE AND DELETE names
-    You can change buttons but ADD onClick={handlers}*/
-    <div>
-      <form>
-        <div>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            placeholder="Email"
-            onChange={changeHandler}
-          ></input>
-          <label htmlFor="email"></label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            onChange={changeHandler}
-          ></input>
-          <label htmlFor="password"></label>
-          <input
-            type="text"
-            id="firstname"
-            name="firstName"
-            placeholder="First Name"
-            onChange={changeHandler}
-          ></input>
-          <label htmlFor="firstName"></label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            placeholder="Last Name"
-            onChange={changeHandler}
-          ></input>
-          <label htmlFor="lastName"></label>
-          <input
-            type="date"
-            id="dateOfBirth"
-            name="dateOfBirth"
-            placeholder="Date Of Birth"
-            onChange={changeHandler}
-          ></input>
-          <label htmlFor="dateOfBirth"></label>
+    <div className="auth-body">
+      <div
+        className={`container ${isLogin ? "" : "right-panel-active"}`}
+        id="container"
+      >
+        <div className="form-container sign-up-container">
+          <form action="#">
+            <h1>Create Account</h1>
+
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              onChange={changeHandler}
+              value={form.firstName}
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              onChange={changeHandler}
+              value={form.lastName}
+            />
+            <input
+              type="date"
+              name="dateOfBirth"
+              onChange={changeHandler}
+              value={form.dateOfBirth}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={changeHandler}
+              value={form.email}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={changeHandler}
+              value={form.password}
+            />
+            <button
+              className="auth-button"
+              onClick={registerHandler}
+              disabled={loading}
+            >
+              Create Account
+            </button>
+          </form>
         </div>
-        <button onClick={registerHandler} disabled={loading}>
-          Sign In
-        </button>
-        <button onClick={loginHandler} disabled={loading}>
-          Log In
-        </button>
-      </form>
+        <div className="form-container sign-in-container">
+          <form action="#">
+            <h1>Sign In</h1>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={changeHandler}
+              value={form.email}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={changeHandler}
+              value={form.password}
+            />
+            {/* <a href="#">Forgot your password?</a>*/}
+            <button
+              className="auth-button"
+              onClick={loginHandler}
+              disabled={loading}
+            >
+              Log In
+            </button>
+          </form>
+        </div>
+        <div className="overlay-container">
+          <div className="overlay">
+            <div
+              className={`overlay-panel overlay-${isLogin ? "right" : "left"}`}
+            >
+              <h1>White Board</h1>
+              <p>Enter your personal details and start your journey with us</p>
+              <button className="auth-button-ghost" onClick={toggleMode}>
+                {isLogin ? "Sign Up" : "Sign In"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

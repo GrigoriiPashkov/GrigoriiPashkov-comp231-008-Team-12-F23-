@@ -5,7 +5,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const router = Router();
-//This Code for Authentication and Registration
+
 // /api/auth/register
 router.post(
   "/register",
@@ -85,7 +85,7 @@ router.post(
         });
       }
 
-      const token = jwt.sign({ userid: user.id }, config.get("jwtSecret"), {
+      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "2h",
       });
       res.json({ token, userId: user.id });

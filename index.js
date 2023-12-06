@@ -6,10 +6,11 @@ const app = express();
 
 app.use(express.json({ extended: true }));
 app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/events", require("./routes/event.routes"));
+
 const PORT = config.get("port") || 5000;
 async function start() {
   try {
-    //mongoose possibly not working if you use IP that not registered, Go to mongoDB, you have admin rights
     mongoose.connection.on("connecting", () => {
       console.log("Connecting to MongoDB...");
     });
