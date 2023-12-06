@@ -15,17 +15,14 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="nav-wrapper">
-        <a href="/" className="brand-logo">
-          Your Logo
-        </a>
         <ul className="nav-links">
           <li>
-            <NavLink to="/home" activeClassName="active-link">
+            <NavLink to="/home" activeclassname="active-link">
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/create" activeClassName="active-link">
+            <NavLink to="/create" activeclassname="active-link">
               Create Event
             </NavLink>
           </li>

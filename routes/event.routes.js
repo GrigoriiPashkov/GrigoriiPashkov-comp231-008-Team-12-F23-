@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const Event = require("../models/Event");
+const User = require("../models/User"); // Make sure this path is correct
 
 const auth = require("../middlware/auth.middleware");
 const config = require("config");
@@ -41,8 +42,10 @@ router.post("/create", auth, async (req, res) => {
 // Get all events
 router.get("/all", auth, async (req, res) => {
   try {
-    const events = await Event.find({});
+    const events = await Event.find({})
 
+      .populate("owner", "firstName lastName") // Populating owner data
+      .exec();
     res.json(events);
   } catch (e) {
     res.status(500).json({ message: "Something goes wrong", error: e.message });
@@ -50,27 +53,37 @@ router.get("/all", auth, async (req, res) => {
 });
 
 // Register for an event
-router.post("/register/:eventId", async (req, res) => {
+router.post("/register/:eventId", auth, async (req, res) => {
   try {
-    const eventId = req.params.eventId;
-    const userId = req.user.id;
+    console.log(req.params);
+    console.log(req.user);
+    const { eventId } = req.params;
+    const userId = req.user.userId; // Assuming your auth middleware sets req.user
 
     const event = await Event.findById(eventId);
     if (!event) {
-      return res.status(404).json({ message: "Event not found." });
+      return res.status(404).json({ message: "Event not found" });
     }
 
+    // Check if the user is already registered
     if (event.attendees.includes(userId)) {
-      return res
-        .status(400)
-        .json({ message: "You are already registered for this event." });
+      return res.status(400).json({ message: "Already registered" });
     }
 
+    // Add user to event's attendees
     event.attendees.push(userId);
     await event.save();
-    res.json({ message: "Registered successfully." });
-  } catch (e) {
-    res.status(500).json({ message: "Something goes wrong", error: e.message });
+
+    // Add event to user's events
+    const user = await User.findById(userId);
+    user.events.push(eventId);
+    await user.save();
+
+    res.json({ message: "Registered successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 });
 

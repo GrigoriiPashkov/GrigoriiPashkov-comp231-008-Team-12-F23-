@@ -8,6 +8,7 @@ const eventSchema = new Schema({
   lng: { type: Number, required: true },
   date: { type: Date, required: true },
   owner: { type: Types.ObjectId, ref: "User" },
+  attendees: [{ type: Types.ObjectId, ref: "User" }],
 });
 
 module.exports = model("Event", eventSchema);
