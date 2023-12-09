@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useMessage } from "../hooks/message.hook";
 import { useHttp } from "../hooks/http.hook";
 import { AuthContext } from "../context/AuthContext";
-import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
 import "../styles/homePage.css";
 
@@ -49,7 +49,6 @@ export const HomePage = () => {
         }
       );
       message(data.message);
-      // Update local state or refetch events if necessary
     } catch (e) {
       message(e.message || "Registration failed");
     }

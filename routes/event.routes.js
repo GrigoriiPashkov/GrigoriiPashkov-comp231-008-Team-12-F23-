@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const Event = require("../models/Event");
-const User = require("../models/User"); // Make sure this path is correct
+const User = require("../models/User");
 
 const auth = require("../middlware/auth.middleware");
 const config = require("config");
@@ -30,7 +30,7 @@ router.post("/create", auth, async (req, res) => {
       owner,
     });
     await event.save();
-    res.status(201).json(event);
+    res.status(201).json({ message: "Event created " });
   } catch (e) {
     res.status(500).json({
       message: "Something goes wrong,Please try again",
@@ -44,7 +44,7 @@ router.get("/all", auth, async (req, res) => {
   try {
     const events = await Event.find({})
 
-      .populate("owner", "firstName lastName") // Populating owner data
+      .populate("owner", "firstName lastName")
       .exec();
     res.json(events);
   } catch (e) {
@@ -58,23 +58,20 @@ router.post("/register/:eventId", auth, async (req, res) => {
     console.log(req.params);
     console.log(req.user);
     const { eventId } = req.params;
-    const userId = req.user.userId; // Assuming your auth middleware sets req.user
+    const userId = req.user.userId;
 
     const event = await Event.findById(eventId);
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
     }
 
-    // Check if the user is already registered
     if (event.attendees.includes(userId)) {
       return res.status(400).json({ message: "Already registered" });
     }
 
-    // Add user to event's attendees
     event.attendees.push(userId);
     await event.save();
 
-    // Add event to user's events
     const user = await User.findById(userId);
     user.events.push(eventId);
     await user.save();

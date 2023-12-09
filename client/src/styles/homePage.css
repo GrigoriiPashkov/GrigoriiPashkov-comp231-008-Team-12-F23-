@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif; /* Optional: Set a default font */
+  font-family: Arial, sans-serif;
 }
 
 .home-container {
@@ -13,24 +13,23 @@ body {
 
 .left-content,
 .right-content {
-  flex: 1; /* Adjust to flex: 1 for equal width */
+  flex: 1;
   background-color: white;
 }
 
 .left-content {
-  background-color: #85b8cb; /* Dark Blue Background */
-  color: white; /* Light text for visibility */
+  background-color: #85b8cb;
+  color: white;
 }
 
 .event-details {
-  background-color: #85b8cb; /* Light Blue Background */
+  background-color: #85b8cb;
   padding: 10px;
   border-radius: 5px;
   margin-top: 20px;
   justify-content: center;
 }
 
-/* Additional Styling */
 .event-details h3 {
   margin-top: 0;
 }
@@ -43,23 +42,23 @@ body {
   margin: 0;
   margin-left: 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 15px;
 }
 
 .event-details-list li {
   padding: 5px 0;
-  border-bottom: 1px solid #ddd; /* Add a separator between items */
+  border-bottom: 1px solid #ddd;
 }
 
 .event-details-list li:last-child {
-  border-bottom: none; /* Remove border from the last item */
+  border-bottom: none;
 }
 
 .event-details-list strong {
-  color: #1d6a96; /* Dark blue for labels */
+  color: #1d6a96;
 }
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .home-container {
     flex-direction: column;

@@ -12,7 +12,7 @@
   padding: 0 20px;
   margin: 0;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-wrapper .brand-logo {
@@ -27,14 +27,21 @@
   margin: 0;
   padding: 0;
 }
-
+.user-image {
+  width: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  padding: 0;
+  padding-top: 5px;
+}
 .nav-wrapper .nav-links li {
   margin-left: 20px;
 }
 
 .nav-wrapper .nav-links li a {
   color: #fff;
-  font-size: 20px;
+  font-size: 1.2rem;
   text-decoration: none;
   transition: color 0.3s ease;
 }

@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import "../styles/navbar.css";
+import userPr from "../img/user.png";
 
 export const Navbar = () => {
   const auth = useContext(AuthContext);
@@ -30,6 +31,11 @@ export const Navbar = () => {
             <a href="/" onClick={logoutHandler}>
               Log Out
             </a>
+          </li>
+          <li>
+            <NavLink to="/profile" className="user-image">
+              <img className="user-image" src={userPr} alt="User Profile" />
+            </NavLink>
           </li>
         </ul>
       </div>
