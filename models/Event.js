@@ -9,6 +9,7 @@ const eventSchema = new Schema({
   date: { type: Date, required: true },
   owner: { type: Types.ObjectId, ref: "User" },
   attendees: [{ type: Types.ObjectId, ref: "User" }],
+  tags: [{ type: String }],
 });
 
 module.exports = model("Event", eventSchema);

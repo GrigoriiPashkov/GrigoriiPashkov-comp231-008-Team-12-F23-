@@ -6,12 +6,14 @@ import PlacesAutocomplete, {
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 import { AuthContext } from "../context/AuthContext";
+import { TagInput } from "../components/TagInput";
 
 export const CreateEvent = () => {
   const auth = useContext(AuthContext);
   const message = useMessage();
   const { request, error, loading, clearError } = useHttp();
   const [address, setAddress] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const [form, setForm] = useState({
     title: "",
@@ -41,12 +43,12 @@ export const CreateEvent = () => {
         location: address,
         lat: coordinates.lat,
         lng: coordinates.lng,
+        tags: selectedTags,
       };
       const data = await request("/api/events/create", "POST", eventData, {
         Authorization: `Bearer ${auth.token}`,
       });
       message(data.message);
-      console.log("Body:", data);
     } catch (e) {}
   };
 
@@ -104,6 +106,10 @@ export const CreateEvent = () => {
           onChange={changeHandler}
         />
         <label htmlFor="date"></label>
+        <TagInput
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
         <button onClick={createEventHandler} disabled={loading}>
           Create Event
         </button>

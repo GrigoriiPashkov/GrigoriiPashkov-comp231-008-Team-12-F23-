@@ -23,8 +23,18 @@ export const Navbar = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/events" activeclassname="active-link">
+              My Events
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/create" activeclassname="active-link">
               Create Event
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/rules" activeclassname="active-link">
+              Rules Page
             </NavLink>
           </li>
           <li>

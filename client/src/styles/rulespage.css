@@ -1,0 +1,34 @@
+.rules-body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.rules-page {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header h1 {
+  color: #333;
+  text-align: center;
+}
+
+.rules-content h2 {
+  color: #007bff;
+}
+
+.rules-content p,
+.rules-content ul {
+  margin-bottom: 15px;
+}
+
+.rules-content ul {
+  list-style: inside square;
+}
+
+.rules-footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #666;
+}

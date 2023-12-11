@@ -40,4 +40,24 @@ router.put("/profile", auth, async (req, res) => {
     res.status(500).json({ message: "Something went wrong, please try again" });
   }
 });
+// GET /api/user/events
+router.get("/events", auth, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const user = await User.findById(userId)
+      .populate("myEvents")
+      .populate("events");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      myEvents: user.myEvents,
+      events: user.events,
+    });
+  } catch (e) {
+    res.status(500).json({ message: "Something went wrong, please try again" });
+  }
+});
 module.exports = router;

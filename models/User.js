@@ -7,6 +7,7 @@ const schema = new Schema({
   lastName: { type: String, required: true },
   dateOfBirth: { type: Date, required: true },
   events: [{ type: Types.ObjectId, ref: "Event" }],
+  myEvents: [{ type: Types.ObjectId, ref: "Event" }],
 });
 
 module.exports = model("User", schema);

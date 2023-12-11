@@ -1,0 +1,18 @@
+.tag-input-container .tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-item {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.tag-item.selected {
+  background-color: #c3e6cb;
+}

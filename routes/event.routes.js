@@ -9,7 +9,7 @@ const router = Router();
 router.post("/create", auth, async (req, res) => {
   try {
     console.log(req.body);
-    const { title, description, location, lat, lng, date } = req.body;
+    const { title, description, location, lat, lng, date, tags } = req.body;
     const owner = req.user.userId;
 
     const existingEvent = await Event.findOne({ location });
@@ -28,8 +28,14 @@ router.post("/create", auth, async (req, res) => {
       lat,
       lng,
       owner,
+      tags,
     });
     await event.save();
+    await User.findByIdAndUpdate(
+      owner,
+      { $push: { myEvents: event._id } },
+      { new: true }
+    );
     res.status(201).json({ message: "Event created " });
   } catch (e) {
     res.status(500).json({
@@ -83,5 +89,35 @@ router.post("/register/:eventId", auth, async (req, res) => {
       .json({ message: "Something went wrong", error: error.message });
   }
 });
+router.put("/update/:eventId", auth, async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const { title, description, location, lat, lng, date, tags } = req.body;
+    const userId = req.user.userId;
 
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    if (event.owner.toString() !== userId) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    event.title = title;
+    event.description = description;
+    event.location = location;
+    event.lat = lat;
+    event.lng = lng;
+    event.date = date;
+    event.tags = tags;
+
+    await event.save();
+
+    res.status(200).json({ message: "Event updated successfully" });
+  } catch (e) {
+    res.status(500).json({ message: "Something went wrong", error: e.message });
+  }
+});
 module.exports = router;
